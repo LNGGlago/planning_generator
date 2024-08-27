@@ -21,8 +21,8 @@ This project is a Python-based scheduling tool designed for a theatre school. It
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/theatre-school-schedule-planner.git
-   cd theatre-school-schedule-planner
+   git clone git@github.com:LNGGlago/planning_generator.git
+   cd planning_generator
    ```
 
 2. **Create a virtual environment** (optional but recommended):
