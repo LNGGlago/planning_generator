@@ -1,0 +1,28 @@
+# Ignorer les fichiers de configuration YAML
+*.yaml
+
+# Ignorer le dossier output contenant les fichiers générés
+output/
+
+# Ignorer les fichiers spécifiques aux environnements Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+VENV/
+env.bak/
+venv.bak/
+
+# Ignorer les fichiers de configuration spécifiques à l'éditeur
+.vscode/
+.idea/
+
+# Ignorer les fichiers log
+*.log
+
+# Ignorer les fichiers de sauvegarde créés par les éditeurs de texte
+*~
