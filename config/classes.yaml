@@ -1,0 +1,9 @@
+classes:
+  - name: "Name" #Name to be displayed in excel
+    location: "Location" #Location to be displayed in excel
+    day_of_week: "Jeudi" #Day of the class, well it is in french
+    time: "16:00-18:30" #The time of the class, it's pretty much useless
+    num_classes: 31 #Number of classes during the year
+    color: "FF0000" #Color to be displayed in excel
+    start_date: "2024-09-12" #The class cannot start before this date
+
