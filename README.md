@@ -94,3 +94,16 @@ vacations:
     end: "2025-03-03"
 ```
 
+### `room_unavailability.yaml`
+
+```yaml
+room_unavailability:
+  Room 1:
+    - start: "2024-10-01"
+      end: "2024-10-10"
+    - start: "2025-01-10"
+      end: "2025-01-15"
+  Room 2:
+    - start: "2024-11-20"
+      end: "2024-11-25"
+```
