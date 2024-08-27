@@ -5,11 +5,49 @@ import os
 from openpyxl import Workbook
 from openpyxl.styles import PatternFill, Font
 from collections import defaultdict
+import sys
 
 # Charger les fichiers de configuration YAML
 def load_config(file_path):
-    with open(file_path, 'r') as file:
-        return yaml.safe_load(file)
+    try:
+        with open(file_path, 'r') as file:
+            return yaml.safe_load(file)
+    except yaml.YAMLError as e:
+        print(f"Erreur lors du chargement du fichier YAML : {file_path}")
+        print(f"Erreur de syntaxe : {e}")
+        sys.exit(1)
+    except FileNotFoundError:
+        print(f"Erreur : Le fichier {file_path} est introuvable.")
+        sys.exit(1)
+
+# Vérification du fichier de configuration des classes
+def validate_classes_config(classes_config):
+    required_fields = ["name", "location", "time", "day_of_week", "num_classes", "color"]
+    for cls in classes_config:
+        for field in required_fields:
+            if field not in cls:
+                print(f"Erreur dans le fichier de configuration des classes : champ '{field}' manquant pour la classe '{cls.get('name', 'inconnue')}'.")
+                sys.exit(1)
+    print("Fichier de configuration des classes validé avec succès.")
+
+# Vérification du fichier de configuration des jours fériés
+def validate_holidays_config(holidays_config):
+    if not isinstance(holidays_config, list):
+        print("Erreur dans le fichier de configuration des jours fériés : Le fichier doit contenir une liste de dates.")
+        sys.exit(1)
+    for date in holidays_config:
+        if not isinstance(date, str):
+            print(f"Erreur dans le fichier de configuration des jours fériés : La date '{date}' n'est pas au format texte.")
+            sys.exit(1)
+    print("Fichier de configuration des jours fériés validé avec succès.")
+
+# Vérification du fichier de configuration des vacances
+def validate_vacations_config(vacations_config):
+    for period in vacations_config:
+        if not isinstance(period, dict) or 'start' not in period or 'end' not in period:
+            print("Erreur dans le fichier de configuration des vacances : Chaque période doit contenir les champs 'start' et 'end'.")
+            sys.exit(1)
+    print("Fichier de configuration des vacances validé avec succès.")
 
 # Vérifie si une date est un jour férié ou tombe pendant les vacances
 def is_holiday_or_vacation(date, holidays, vacations):
@@ -49,6 +87,11 @@ def generate_planning():
     classes = load_config('config/classes.yaml')['classes']
     holidays = load_config('config/holidays.yaml')['holidays']
     vacations = load_config('config/vacations.yaml')['vacations']
+
+    # Validate the configuration files
+    validate_classes_config(classes)
+    validate_holidays_config(holidays)
+    validate_vacations_config(vacations)
     
     # Regrouper les classes par lieux
     classes_by_location = defaultdict(list)
